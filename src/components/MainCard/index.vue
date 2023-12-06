@@ -33,6 +33,14 @@ export default {
   /* Estilos do seu componente MainCard Vue aqui */
 }
 
+/* Estilos para o contêiner dos cards */
+.card-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os cards quebrem para a próxima linha */
+  justify-content: space-between; /* Distribui os cards igualmente na linha */
+  gap: 20px; /* Espaçamento entre os cards */
+}
+
 .main-card img {
   width: 100%;
 }

@@ -43,32 +43,41 @@ export default {
 
 .main-navbar img {
   height: 4em;
-  margin-right: 1em;
+  margin-right: 0.5em; /* Reduz um pouco o espaçamento entre a imagem e o texto */
 }
 
 .main-navbar .title {
   flex-grow: 1;
-  display: none;
+  display: block;
+  font-size: 1.5em;
   color: black;
-  margin-left: 1em;
+  margin-left: 0.5em; /* Reduz o espaçamento à esquerda */
 }
 
 .main-navbar .search {
   position: relative;
-  background-color: black;
-  color: white;
+  background-color: white; /* Altera a cor de fundo para branco */
   border-radius: 4px;
   width: 100%;
+  border: 1px solid #ccc; /* Adiciona uma borda para destacar o campo de entrada */
 }
 
 .main-navbar .search-icon {
-  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 0;
-  bottom: 0;
-  left: 0;
   padding: 0.5em;
+  background-color: #ccc; /* Altera a cor de fundo do ícone de pesquisa */
+  border-radius: 4px 0 0 4px; /* Ajusta o raio da borda */
+  color: white;
+}
+
+.main-navbar .search input {
+  width: calc(100% - 2em); /* Ajusta o tamanho do input para se alinhar com o ícone de pesquisa */
+  padding: 0.5em;
+  border: none;
+  border-radius: 0 4px 4px 0; /* Ajusta o raio da borda */
+  background-color: white;
+  color: #333;
 }
 </style>

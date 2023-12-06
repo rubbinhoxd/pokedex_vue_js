@@ -2,31 +2,34 @@
   <div>
     <MainNavbar @filter-pokemons="handleFilterPokemons" />
     <Container>
-      <Grid container spacing="3">
+      <div class="card-container">
         <template v-if="isLoading">
+          <!-- Se estiver carregando, exiba placeholders -->
           <div
               v-for="index in 200"
               :key="index"
               class="pokemon-card-placeholder"
           >
-            <div class="pokemon-image-placeholder"></div>
-            <div class="pokemon-info-placeholder">
-              <div class="pokemon-name-placeholder"></div>
-              <div class="pokemon-type-placeholder"></div>
-              <div class="pokemon-description-placeholder"></div>
-            </div>
+            <!-- Placeholders -->
           </div>
         </template>
         <template v-else>
-          <Grid v-for="(pokemon, key) in pokemons" :key="key" item xs="12" sm="6" md="4" lg="2">
+          <!-- Renderiza os cards -->
+          <div
+              v-for="(pokemon, key) in chunkedPokemons"
+              :key="key"
+              class="card-row"
+          >
             <MainCard
-                :pokemonName="pokemon.name"
-                :pokemonUrlImage="pokemon.url"
-                :pokemonType="pokemon.types"
+                v-for="(item, index) in pokemon"
+                :key="index"
+                :pokemonName="item.name"
+                :pokemonUrlImage="item.url"
+                :pokemonType="item.types"
             />
-          </Grid>
+          </div>
         </template>
-      </Grid>
+      </div>
     </Container>
   </div>
 </template>
@@ -41,6 +44,21 @@ export default {
   components: {
     MainNavbar,
     MainCard,
+  },
+
+  computed: {
+    // Método computado para dividir os pokemons em grupos de 4
+    chunkedPokemons() {
+      const chunkSize = 4;
+      const arrayCopy = [...this.pokemons];
+      const chunkedArray = [];
+
+      while (arrayCopy.length > 0) {
+        chunkedArray.push(arrayCopy.splice(0, chunkSize));
+      }
+
+      return chunkedArray;
+    },
   },
   setup() {
     const pokemons = ref([]);
@@ -139,5 +157,19 @@ export default {
   /* Estilos para o espaço reservado da descrição do Pokémon */
   height: 60px;
   background-color: #f0f0f0;
+}
+
+/* Adicione os estilos para o contêiner dos cards */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Estilos para cada linha de cards */
+.card-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 </style>
